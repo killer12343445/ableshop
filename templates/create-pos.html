@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Создать лот</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/pics/a.png">
+    <header>
+      <div class="up">
+          <div class="uphead">
+            <h1>AbleShop</h1>
+            <h6 style=" font-family: cursive">just use your able!</h6>
+          </div>
+          <div class="cart2">
+            <a href="/cart"><img src="../static/pics/shopping-cart.png" height="40px" width="40px" style="margin-top: 10px; margin-left:10px;"></a>
+          </div>
+          <div class="userscreen">
+            {% if current_user.is_authenticated %}
+              <h4 style="color: rgb(200, 200, 200)">Ваш профиль:</h4>
+              <nav>
+                <ul class="spisok">
+                  <li style="width:170px;"> <p style="font-weight: bold; color: black;">{{current_user.username}}</p>
+                    <ul class="spisok">
+                      <li> <a class="links" href="/My_Profile">Мой профиль</a> </li>
+                      <li> <a class="links" href="#">Сменить пароль</a> </li>
+                      <li> <a class="links" href="/logout">Выход</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            {% endif %}
+          </div>
+          <a href="/delete" style="margin-left: 10px;"><button type="deleting" name="deleting" style="background-color:black;"></button></a>
+      </div>
+    </header>
+  </head>
+  <body>
+    <div class="left-column">
+      <div class="">
+        <a href="/" class="txts">Главная</a><br>
+        <h5>________________________</h5><br>
+        <a href="/create-pos" class="txts">Создать</a><br>
+        <h5>________________________</h5><br>
+        <a href="/register" class="txts">Регистрация</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+      </div>
+    </div>
+    <div class="forming">
+      <h1>Форма для занесения лота в список</h1>
+      <form class="form1" method="post" enctype="multipart/form-data">
+        <h4 class="iptname">Название товара</h4>
+        <input type="text" name="name" id="name" class="ipt1"><br>
+        <h4 class="iptname">Описание товара</h4>
+        <input type="text" name="deskription" id="deskription" class="ipt1" formenctype="application/x-www-form-urlencoded">
+        <h4 class="iptname">Цена товара</h4>
+        <input type="text" name="price" id="price" class="ipt1"><br>
+        <h4 class="iptname">Фото товара</h4>
+        <input type="file" name="filename" id="photo" class="ipt1" style="border: none"><br>
+        <input type="submit" name="allow" value="Утвердить" class="btn">
+      </form>
+    </div>
+  </body>
+</html>

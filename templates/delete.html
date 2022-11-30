@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/pics/a.png">
+    <header>
+      <div class="up">
+          <div class="uphead">
+            <h1>AbleShop</h1>
+            <h6 style=" font-family: cursive">just use your able!</h6>
+          </div>
+          <div class="userscreen">
+            {% if current_user.is_authenticated %}
+              <h4 style="color: rgb(200, 200, 200)">Ваш профиль:</h4>
+              <nav>
+                <ul class="spisok">
+                  <li style="width:170px;"> <p style="font-weight: bold; color: black;">{{current_user.username}}</p>
+                    <ul class="spisok">
+                      <li> <a class="links" href="/My_Profile">Мой профиль</a> </li>
+                      <li> <a class="links" href="#">Сменить пароль</a> </li>
+                      <li> <a class="links" href="/logout">Выход</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            {% endif %}
+          </div>
+          <a href="/delete" style="margin-left: 10px;"><button type="deleting" name="deleting" style="background-color:black;"></button></a>
+      </div>
+    </header>
+  </head>
+  <body>
+    <div class="left-column">
+      <div class="">
+        <a href="/" class="txts">Главная</a><br>
+        <h5>________________________</h5><br>
+        <a href="/create-pos" class="txts">Создать</a><br>
+        <h5>________________________</h5><br>
+        <a href="/register" class="txts">Регистрация</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+      </div>
+    </div>
+    <div class="forming">
+      <h1>Удаление товара</h1>
+      <form class="form1" method="post" enctype="multipart/form-data">
+        <h4 class="iptname">Id товара</h4>
+        <input type="text" name="ids" id="ids" class="ipt1"><br>
+        <h4 class="iptname">Пароль админа</h4>
+        <input type="password" name="password" id="password" class="ipt1" formenctype="application/x-www-form-urlencoded">
+        <input type="submit" name="allow" value="Удалить" class="btn1">
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/pics/a.png">
+    <header>
+      <div class="up">
+          <div class="uphead">
+            <h1>AbleShop</h1>
+            <h6 style=" font-family: cursive">just use your able!</h6>
+          </div>
+          <div class="cart2">
+            <a href="/cart"><img src="../static/pics/shopping-cart.png" height="40px" width="40px" style="margin-top: 10px; margin-left:10px;"></a>
+          </div>
+            {% if current_user.is_authenticated %}
+            <div class="userscreen">
+              <h4 style="color: rgb(200, 200, 200)">Ваш профиль:</h4>
+              <nav>
+                <ul class="spisok">
+                  <li style="width:170px;"> <p style="font-weight: bold; color: black;">{{current_user.username}}</p>
+                    <ul class="spisok">
+                      <li> <a class="links" href="/My_Profile">Мой профиль</a> </li>
+                      <li> <a class="links" href="/changepas">Сменить пароль</a> </li>
+                      <li> <a class="links" href="/logout">Выход</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            {% else %}
+            <div class="ent">
+              <a href="/login" class="enterlinks">Войти</a>
+              <a href="/register" class="enterlinks">Зарегистрироваться</a>
+            </div>
+            {% endif %}
+          </div>
+          <a href="/delete" style="margin-left: 10px;"><button type="deleting" name="deleting" style="background-color:black;"></button></a>
+      </div>
+    </header>
+  </head>
+  <body>
+    <div class="left-column">
+      <div class="">
+        <a href="/" class="txts">Главная</a><br>
+        <h5>________________________</h5><br>
+        <a href="/create-pos" class="txts">Создать</a><br>
+        <h5>________________________</h5><br>
+        <a href="/register" class="txts">Регистрация</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+      </div>
+    </div>
+    <div class="prod">
+      <h1 style="padding-bottom: 10px;">{{products.name}}</h1>
+      <img src="../{{ products.photo }}" alt="" class="prod-ph">
+      <div class="prod-txt">
+        <p>Описание:</p>
+        <p class="prod-txt-2">{{products.description}}</p>
+      </div>
+      <div class="prod-txt">
+        <p>Цена за шт:</p>
+        <p class="prod-txt-2">{{products.price}} рублей</p>
+      </div>
+      <div class="prod-txt">
+        <p>Продавец: </p>
+        <p class="prod-txt-2">{{products.author}}</p>
+      </div>
+      {% if current_user.post == products.author %}
+        <div class="redact">
+          <a href="/redact/{{products.id}}">редактировать пост</a>
+        </div>
+      {% endif %}
+      <p style="margin-top: 150px; text-align: right; margin-right: 20px">{{products.date.date()}}</p>
+    </div>
+    <div class="review">
+      <h1 style="text-align: center; padding-top: 10px; font-family: sans-serif;">Отзывы</h1>
+      <form class="form2" method="post" enctype="multipart/form-data">
+        <h1 style="margin-left:3px; font-family: sans-serif; margin-bottom: 20px; background-color: rgb(230, 230, 230); padding-left: 5px; width: 265px; border-radius:30px">Оставить отзыв</h1>
+        <h2 style="margin-left:10px; font-family: sans-serif;">Заголовок отзыва</h2>
+        <input type="text" name="revname" value="" class="ipt1" style="margin-left:0; margin-top: 10px;"><br>
+        <h2 style="margin-left:10px; font-family: sans-serif;">Текст отзыва</h2>
+        <input type="text" name="revtext" value="" class="ipt1" style="margin-left:0; margin-top: 10px;"><br>
+        <p style="font-size: 20px; font-family: sans-serif; margin-left: 10px;">Рекомендую <input type="checkbox" name="recom" value=""></p>
+        <input type="submit" name="allow" value="Утвердить" class="btn">
+      </form>
+    </div>
+    {% for el in feeds %}
+      {% if products.id == el.prodid %}
+        {% if el.recom %}
+          <div class="otziv">
+            <h1>{{el.feedname}}</h1>
+            <h2 style="margin-top: 10px; background-color: rgb(118, 255, 122); padding-top: 5px; padding-bottom: 5px; padding-left: 10px; border-radius: 10px; width: 200px;">{{el.title}}</h2>
+            <p style="min-height: 20px; word-wrap: break-word; margin-top: 10px; background-color: rgb(118, 255, 122); padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;border-radius: 10px; width: 500px;">{{el.text}}</p>
+            <h3 style="margin-top:20px;">Рекомендую: да</h3>
+            {% if current_user.post == el.feedpost %}
+            <div class="delcom">
+              <a href="/delcom/{{products.id}}/{{el.id}}">Удалить</a>
+            </div>
+            {% endif %}
+          </div>
+        {% else %}
+        <div class="otziv2">
+          <h1>{{el.feedname}}</h1>
+          <h2 style="margin-top: 10px; background-color: rgb(255, 76, 91); padding-top: 5px; padding-bottom: 5px; padding-left: 10px; border-radius: 10px; width: 200px;">{{el.title}}</h2>
+          <p style="min-height: 20px; word-wrap: break-word; margin-top: 10px; background-color: rgb(255, 76, 91); padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;border-radius: 10px; width: 500px;">{{el.text}}</p>
+          <h3 style="margin-top:20px;">Рекомендую: нет</h3>
+          {% if current_user.post == el.feedpost %}
+          <div class="delcom">
+            <a href="/delcom/{{products.id}}/{{el.id}}">Удалить</a>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </body>
+</html>

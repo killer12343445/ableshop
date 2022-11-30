@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/pics/a.png">
+    <header>
+      <div class="up">
+          <div class="uphead">
+            <h1>AbleShop</h1>
+            <h6 style=" font-family: cursive">just use your able!</h6>
+          </div>
+          <div class="cart2">
+            <a href="/cart"><img src="../static/pics/shopping-cart.png" height="40px" width="40px" style="margin-top: 10px; margin-left:10px;"></a>
+          </div>
+            {% if current_user.is_authenticated %}
+            <div class="userscreen">
+              <h4 style="color: rgb(200, 200, 200)">Ваш профиль:</h4>
+              <nav>
+                <ul class="spisok">
+                  <li style="width:170px;"> <p style="font-weight: bold; color: black;">{{current_user.username}}</p>
+                    <ul class="spisok">
+                      <li> <a class="links" href="/My_Profile">Мой профиль</a> </li>
+                      <li> <a class="links" href="/changepas">Сменить пароль</a> </li>
+                      <li> <a class="links" href="/logout">Выход</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            {% else %}
+            <div class="ent">
+              <a href="/login" class="enterlinks">Войти</a>
+              <a href="/register" class="enterlinks">Зарегистрироваться</a>
+            </div>
+            {% endif %}
+
+          <a href="/delete" style="margin-left: 10px;"><button type="deleting" name="deleting" style="background-color:black;"></button></a>
+      </div>
+    </header>
+  </head>
+  <body>
+    <div class="left-column">
+      <div class="">
+        <a href="/" class="txts">Главная</a><br>
+        <h5>________________________</h5><br>
+        <a href="/create-pos" class="txts">Создать</a><br>
+        <h5>________________________</h5><br>
+        <a href="/register" class="txts">Регистрация</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+      </div>
+    </div>
+    <div class="seller-icon">
+      <h1 style="text-align: center; font-family: sans-serif; font-size: 40px; margin-top: 10px;">Корзина</h1>
+      {% for el in prods %}
+      <div class="tovar">
+        <a href="product/{{Shop.query.get(el).id}}">
+          <img src='{{Shop.query.get(el).photo}}' class="tov-photo">
+        </a>
+        <h2 class="name-tov">{{Shop.query.get(el).name}}</h2>
+        <div class="deskk">
+          <h4 class="desk-tov">{{Shop.query.get(el).description}}</h4>
+        </div>
+        <div class="pricing">
+          <h3>{{Shop.query.get(el).price}}руб.</h3>
+        </div>
+        <div class="removecart">
+          <a href="/remove/{{Shop.query.get(el).id}}">Удалить из корзины</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="footer-price">
+      <h1 style="margin-left: 20px; padding-top:5px; font-weight: bold">Итого: </h1>
+      <h2 style="margin-left: 5px;padding-top:13px; font-weight: lighter">{{finalprice}} рублей</h2>
+      <a href="/buy" style="margin-left: 740px; margin-top: 10px; font-size: 20px; background-color: rgb(124, 252, 0); height: 30px; width: 125px; padding-left:18px; border-radius: 10px; padding-top: 5px;">Заказать всё</a>
+    </div>
+  </body>
+</html>

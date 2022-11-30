@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/pics/a.png">
+    <header>
+      <div class="up">
+          <div class="uphead">
+            <h1>AbleShop</h1>
+            <h6 style=" font-family: cursive">just use your able!</h6>
+          </div>
+            {% if current_user.is_authenticated %}
+            <div class="cart2">
+              <a href="/cart"><img src="../static/pics/shopping-cart.png" height="40px" width="40px" style="margin-top: 10px; margin-left:10px;"></a>
+            </div>
+            <div class="userscreen">
+              <h4 style="color: rgb(200, 200, 200)">Ваш профиль:</h4>
+              <nav>
+                <ul class="spisok">
+                  <li style="width:170px;"> <p style="font-weight: bold; color: black;">{{current_user.username}}</p>
+                    <ul class="spisok">
+                      <li> <a class="links" href="/My_Profile">Мой профиль</a> </li>
+                      <li> <a class="links" href="/changepas">Сменить пароль</a> </li>
+                      <li> <a class="links" href="/logout">Выход</a> </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            {% else %}
+            <div class="cart">
+              <a href="/cart"><img src="../static/pics/shopping-cart.png" height="40px" width="40px" style="margin-top: 10px; margin-left:10px;"></a>
+            </div>
+            <div class="ent">
+              <a href="/login" class="enterlinks">Войти</a>
+              <a href="/register" class="enterlinks">Зарегистрироваться</a>
+            </div>
+            {% endif %}
+
+          <a href="/delete" style="margin-left: 10px;"><button type="deleting" name="deleting" style="background-color:black;"></button></a>
+      </div>
+    </header>
+  </head>
+  <body>
+    <div class="left-column">
+      <div class="">
+        <a href="/" class="txts">Главная</a><br>
+        <h5>________________________</h5><br>
+        <a href="/create-pos" class="txts">Создать</a><br>
+        <h5>________________________</h5><br>
+        <a href="/register" class="txts">Регистрация</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+        <h5>________________________</h5><br>
+        <a href="#" class="txts">ссылка</a><br>
+      </div>
+    </div>
+    <div class="seller-icon">
+      <h1 style="text-align: center; font-family: sans-serif; font-size: 40px; margin-top: 10px;">Список товаров</h1>
+      {% for el in posts %}
+      <div class="tovar">
+        <a href="product/{{el.id}}">
+          <img src='{{el.photo}}' class="tov-photo">
+        </a>
+        <h2 class="name-tov">{{el.name}}</h2>
+        <div class="deskk">
+          <h4 class="desk-tov">{{el.description}}</h4>
+        </div>
+        <div class="pricing">
+          <h3>{{el.price}}руб.</h3>
+        </div>
+        <div class="addcart">
+          <a href="/addtocart/{{el.id}}">Добавить в корзину</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
